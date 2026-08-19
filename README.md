@@ -1,70 +1,46 @@
-# فصل ۶ — پروژه‌های واقعی
+<h1 align="center">سلام 👋، من محمدرضا هستم</h1>
+<h3 align="center">Python Developer & Instructor | برنامه‌نویس پایتون و مدرس اتوماسیون</h3>
 
-حالا وقتشه چیزهایی که یاد گرفتیم رو توی چند پروژه‌ی واقعی پیاده کنیم.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+</p>
 
-## پروژه ۱: ربات پاسخ‌گوی تلگرام
+---
 
-**هدف:** وقتی کاربر به ربات تلگرام پیام می‌ده، پاسخ خودکار بگیره.
+### 🧑‍💻 درباره من
 
-**Nodeهای استفاده‌شده:** Telegram Trigger → IF → Telegram (Send Message)
+- 🎓 مدرس دوره‌های آموزشی کاربردی پایتون و اتوماسیون
+- 🔗 علاقه‌مند به اتوماسیون workflow با **n8n** و ابزارهای متن‌باز
+- 🌐 صاحب [سیما تکسان وب](https://simatacksanweb.ir) — طراحی سایت، برندسازی، سئو و پشتیبانی
+- 📚 در حال ساخت محتوای آموزشی برای فارسی‌زبانان
 
-```
-Telegram Trigger (روی پیام‌های جدید)
-   ↓
-IF (اگه پیام شامل "قیمت" بود)
-   ↓ بله → Send Message ("قیمت‌ها رو از سایت ببینید: ...")
-   ↓ خیر → Send Message ("سلام! چطور می‌تونم کمک کنم؟")
-```
+### 📌 پروژه‌های شاخص
 
-## پروژه ۲: گزارش روزانه به گوگل‌شیت + تلگرام
+| پروژه | توضیح |
+|-------|-------|
+| [python-course-mohammadreza](https://github.com/mdr702/python-course-mohammadreza) | دوره آموزش پایتون از مقدماتی تا پیشرفته |
+| [n8n-tutorial-farsi](https://github.com/mdr702/n8n-tutorial-farsi) | آموزش کامل و پروژه‌محور n8n به فارسی |
+| [dcode](https://github.com/mdr702/dcode) | پروژه‌ی dcode |
 
-**هدف:** هر روز ساعت ۹ صبح، داده از یه API بگیره، توی گوگل‌شیت ذخیره کنه و خلاصه‌ش رو به تلگرام بفرسته.
+### 🛠 تکنولوژی‌ها و ابزارها
 
-```
-Schedule Trigger (هر روز ۹ صبح)
-   ↓
-HTTP Request (گرفتن داده از API)
-   ↓
-Google Sheets (Append Row)
-   ↓
-Telegram (Send Message با خلاصه‌ی گزارش)
-```
+![Python](https://img.shields.io/badge/-Python-333333?style=flat&logo=python)
+![n8n](https://img.shields.io/badge/-n8n-333333?style=flat&logo=n8n)
+![Docker](https://img.shields.io/badge/-Docker-333333?style=flat&logo=docker)
+![Git](https://img.shields.io/badge/-Git-333333?style=flat&logo=git)
+![Linux](https://img.shields.io/badge/-Linux-333333?style=flat&logo=linux)
 
-## پروژه ۳: اتصال فرم سایت به CRM + ایمیل خوش‌آمدگویی
+### 📊 آمار گیت‌هاب
 
-**هدف:** وقتی کسی فرم سایت رو پر می‌کنه، اطلاعاتش ذخیره بشه و ایمیل خوش‌آمد بره.
+<p align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=mdr702&show_icons=true&theme=default" alt="mdr702 stats" />
+</p>
 
-```
-Webhook (دریافت داده‌ی فرم)
-   ↓
-Set (پاکسازی و فرمت‌دهی داده)
-   ↓
-Google Sheets / Airtable (ذخیره‌سازی)
-   ↓
-Send Email (ایمیل خوش‌آمدگویی)
-```
+### 📬 ارتباط با من
 
-## پروژه ۴: اتوماسیون با هوش مصنوعی (AI Agent)
+[![Website](https://img.shields.io/badge/Website-simatacksanweb.ir-blue?style=flat-square)](https://simatacksanweb.ir)
 
-**هدف:** استفاده از Node مخصوص OpenAI/Claude برای پاسخ‌دهی هوشمند به پیام‌ها.
-
-```
-Webhook / Telegram Trigger
-   ↓
-AI Agent Node (با پرامپت سفارشی)
-   ↓
-پاسخ خودکار به کاربر
-```
-
-> فایل `workflow.json` هر پروژه به‌زودی در این پوشه اضافه می‌شه. اگه خودت یه workflow جالب ساختی، خوشحال می‌شم با Pull Request به این پوشه اضافه کنی!
-
-## جمع‌بندی دوره
-
-اگه تا اینجا اومدی، الان می‌تونی:
-
-- ✅ n8n رو نصب و راه‌اندازی کنی
-- ✅ Nodeها و ساختار داده رو درک کنی
-- ✅ با APIها و Webhookها کار کنی
-- ✅ workflowهای واقعی و کاربردی بسازی
-
-قدم بعدی: یکی از پروژه‌های بالا رو برای کسب‌وکار یا نیاز شخصی خودت پیاده‌سازی کن! 🚀
+---
+<p align="center"><i>اگه دوره‌ها یا پروژه‌هام به دردت خورد، یه ⭐️ فراموش نشه!</i></p>

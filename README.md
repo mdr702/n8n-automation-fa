@@ -1,63 +1,53 @@
-# فصل ۴ — کار با HTTP Request و APIها
+# فصل ۵ — Webhookها
 
-## HTTP Request Node
+## Webhook چیه؟
 
-قوی‌ترین Node برای اتصال به هر API که n8n اینتگریشن اختصاصی براش نداره.
+Webhook یه URL هست که n8n بهت می‌ده و وقتی یه سرویس بیرونی (فرم سایت، سیستم پرداخت، اپلیکیشن دیگه) به اون URL درخواست بفرسته، workflow تو خودکار اجرا می‌شه.
 
-### مثال: گرفتن اطلاعات آب‌وهوا
+## ساخت یه Webhook ساده
 
-```
-Method: GET
-URL: https://api.open-meteo.com/v1/forecast?latitude=35.7&longitude=51.4&current_weather=true
-```
+1. یه Node به اسم **Webhook** اضافه کن
+2. `HTTP Method` رو روی `POST` بذار
+3. یه `Path` دلخواه انتخاب کن، مثلاً `new-order`
+4. n8n دو تا URL بهت می‌ده:
+   - **Test URL**: برای توسعه و تست
+   - **Production URL**: برای استفاده‌ی واقعی (بعد از فعال‌سازی/publish کردن workflow)
 
-خروجی به‌صورت JSON برمی‌گرده و می‌تونی توی Nodeهای بعدی ازش استفاده کنی.
+## مثال کاربردی: اتصال فرم سایت به n8n
 
-## احراز هویت (Authentication)
-
-اکثر APIها نیاز به Authentication دارن. n8n از این روش‌ها پشتیبانی می‌کنه:
-
-| نوع | کاربرد |
-|-----|--------|
-| **None** | APIهای عمومی و رایگان |
-| **Header Auth** | ارسال API Key در Header |
-| **Basic Auth** | یوزرنیم/پسورد |
-| **OAuth2** | سرویس‌هایی مثل گوگل، مایکروسافت |
-
-نکته مهم: کلیدهای API رو همیشه توی بخش **Credentials** ذخیره کن، نه مستقیم توی URL — امن‌تره و قابل استفاده مجدده.
-
-## پارس کردن پاسخ JSON
-
-فرض کن پاسخ API این شکلیه:
+فرض کن فرم تماس سایتت داده رو به این شکل POST می‌کنه:
 
 ```json
 {
-  "results": [
-    { "id": 1, "name": "محصول الف" },
-    { "id": 2, "name": "محصول ب" }
-  ]
+  "name": "سارا احمدی",
+  "email": "sara@example.com",
+  "message": "سلام، سوال دارم"
 }
 ```
 
-برای دسترسی به این داده در Node بعدی از expression استفاده می‌کنی:
+با Webhook Node این داده رو می‌گیری و می‌تونی:
+- توی گوگل‌شیت ذخیره‌ش کنی
+- پیام تلگرام بفرستی
+- ایمیل خودکار جواب بدی
 
-```
-{{ $json.results }}
-```
+## امنیت Webhook
 
-## ارسال درخواست POST با بدنه‌ی JSON
+- از **Header Auth** برای محدود کردن دسترسی به Webhook استفاده کن
+- IP سرویس مبدا رو (در صورت امکان) با Node شرطی (IF) بررسی کن
+- هیچ‌وقت داده‌ی حساس رو بدون اعتبارسنجی مستقیم به دیتابیس نفرست
 
-```
-Method: POST
-Body Content Type: JSON
-Body: {
-  "title": "{{ $json.title }}",
-  "status": "done"
-}
-```
+## پاسخ دادن به Webhook
+
+با Node **Respond to Webhook** می‌تونی یه پاسخ سفارشی (مثلاً `{"status": "ok"}`) به فرستنده‌ی درخواست برگردونی.
 
 ## تمرین این فصل
 
-فایل `workflow.json` این پوشه رو import کن — یه workflow که با HTTP Request به یه API عمومی وصل می‌شه و نتیجه رو فیلتر می‌کنه.
+فایل `workflow.json` این پوشه رو import کن، Webhook رو فعال کن و با ابزاری مثل Postman یا curl یه درخواست تست بفرست:
 
-➡️ فصل بعد: [Webhookها](../05-webhooks)
+```bash
+curl -X POST http://localhost:5678/webhook-test/new-order \
+  -H "Content-Type: application/json" \
+  -d '{"name": "تست", "email": "test@example.com"}'
+```
+
+➡️ فصل بعد: [پروژه‌های واقعی](../06-real-world-projects)

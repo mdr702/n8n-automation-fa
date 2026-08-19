@@ -1,46 +1,38 @@
 {
-  "name": "04 - HTTP API Example",
+  "name": "05 - Webhook Example",
   "nodes": [
     {
-      "parameters": {},
-      "id": "1",
-      "name": "Manual Trigger",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [240, 300]
-    },
-    {
       "parameters": {
-        "url": "https://api.open-meteo.com/v1/forecast?latitude=35.7&longitude=51.4&current_weather=true",
+        "path": "new-order",
+        "httpMethod": "POST",
+        "responseMode": "onReceived",
         "options": {}
       },
-      "id": "2",
-      "name": "HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [460, 300]
+      "id": "1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
     },
     {
       "parameters": {
         "fields": {
           "values": [
-            { "name": "temperature", "value": "={{ $json.current_weather.temperature }}" }
+            { "name": "receivedName", "value": "={{ $json.body.name }}" },
+            { "name": "receivedEmail", "value": "={{ $json.body.email }}" }
           ]
         }
       },
-      "id": "3",
-      "name": "Extract Temperature",
+      "id": "2",
+      "name": "Extract Data",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3,
-      "position": [680, 300]
+      "position": [460, 300]
     }
   ],
   "connections": {
-    "Manual Trigger": {
-      "main": [[{ "node": "HTTP Request", "type": "main", "index": 0 }]]
-    },
-    "HTTP Request": {
-      "main": [[{ "node": "Extract Temperature", "type": "main", "index": 0 }]]
+    "Webhook": {
+      "main": [[{ "node": "Extract Data", "type": "main", "index": 0 }]]
     }
   }
 }

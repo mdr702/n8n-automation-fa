@@ -1,5 +1,5 @@
 {
-  "name": "02 - Node Basics Example",
+  "name": "04 - HTTP API Example",
   "nodes": [
     {
       "parameters": {},
@@ -11,36 +11,36 @@
     },
     {
       "parameters": {
-        "fields": {
-          "values": [
-            { "name": "firstName", "value": "علی" },
-            { "name": "lastName", "value": "رضایی" }
-          ]
-        }
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=35.7&longitude=51.4&current_weather=true",
+        "options": {}
       },
       "id": "2",
-      "name": "Set Fields",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3,
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [460, 300]
     },
     {
       "parameters": {
-        "jsCode": "for (const item of $input.all()) {\n  item.json.fullName = item.json.firstName + ' ' + item.json.lastName;\n}\nreturn $input.all();"
+        "fields": {
+          "values": [
+            { "name": "temperature", "value": "={{ $json.current_weather.temperature }}" }
+          ]
+        }
       },
       "id": "3",
-      "name": "Combine Names",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "name": "Extract Temperature",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
       "position": [680, 300]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Set Fields", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "HTTP Request", "type": "main", "index": 0 }]]
     },
-    "Set Fields": {
-      "main": [[{ "node": "Combine Names", "type": "main", "index": 0 }]]
+    "HTTP Request": {
+      "main": [[{ "node": "Extract Temperature", "type": "main", "index": 0 }]]
     }
   }
 }

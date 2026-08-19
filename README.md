@@ -1,48 +1,53 @@
-# n8n-automation-fa
-آموزش و پروژه‌های عملی n8n برای اتوماسیون، هوش مصنوعی، WordPress و SEO
-<h1 align="center">سلام 👋، من محمدرضا هستم</h1>
-<h3 align="center">Python Developer & Instructor | برنامه‌نویس پایتون و مدرس اتوماسیون</h3>
+# فصل ۱ — مقدمه و نصب n8n
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white" />
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
-</p>
+## n8n چیه؟
 
----
+**n8n** (خونده می‌شه "ان-ایت-ان") یه ابزار متن‌باز اتوماسیون workflow هست که بهت اجازه می‌ده بدون نوشتن کد زیاد، سرویس‌های مختلف (تلگرام، ایمیل، گوگل‌شیت، دیتابیس، APIها) رو به هم وصل کنی و فرآیندها رو خودکار کنی.
 
-### 🧑‍💻 درباره من
+### چرا n8n؟
 
-- 🎓 مدرس دوره‌های آموزشی کاربردی پایتون و اتوماسیون
-- 🔗 علاقه‌مند به اتوماسیون workflow با **n8n** و ابزارهای متن‌باز
-- 🌐 صاحب [سیما تکسان وب](https://simatacksanweb.ir) — طراحی سایت، برندسازی، سئو و پشتیبانی
-- 📚 در حال ساخت محتوای آموزشی برای فارسی‌زبانان
+- ✅ متن‌باز و قابل نصب روی سرور خودت (کنترل کامل روی داده‌ها)
+- ✅ بیش از ۴۰۰ اینتگریشن آماده
+- ✅ امکان نوشتن کد JavaScript/Python داخل workflow برای منطق‌های پیچیده
+- ✅ رایگان برای self-hosted (نسخه Cloud هم داره)
 
-### 📌 پروژه‌های شاخص
+## روش‌های نصب
 
-| پروژه | توضیح |
-|-------|-------|
-| [python-course-mohammadreza](https://github.com/mdr702/python-course-mohammadreza) | دوره آموزش پایتون از مقدماتی تا پیشرفته |
-| [n8n-tutorial-farsi](https://github.com/mdr702/n8n-tutorial-farsi) | آموزش کامل و پروژه‌محور n8n به فارسی |
-| [dcode](https://github.com/mdr702/dcode) | پروژه‌ی dcode |
+### روش ۱: Docker (پیشنهادی)
 
-### 🛠 تکنولوژی‌ها و ابزارها
+```bash
+docker run -it --rm \
+  --name n8n \
+  -p 5678:5678 \
+  -v n8n_data:/home/node/.n8n \
+  docker.n8n.io/n8nio/n8n
+```
 
-![Python](https://img.shields.io/badge/-Python-333333?style=flat&logo=python)
-![n8n](https://img.shields.io/badge/-n8n-333333?style=flat&logo=n8n)
-![Docker](https://img.shields.io/badge/-Docker-333333?style=flat&logo=docker)
-![Git](https://img.shields.io/badge/-Git-333333?style=flat&logo=git)
-![Linux](https://img.shields.io/badge/-Linux-333333?style=flat&logo=linux)
+### روش ۲: npm
 
-### 📊 آمار گیت‌هاب
+```bash
+npm install n8n -g
+n8n start
+```
 
-<p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=mdr702&show_icons=true&theme=default" alt="mdr702 stats" />
-</p>
+### روش ۳: نسخه‌ی Cloud (بدون نصب)
 
-### 📬 ارتباط با من
+از سایت رسمی [n8n.io](https://n8n.io) ثبت‌نام کن و بدون نیاز به سرور شروع کن.
 
-[![Website](https://img.shields.io/badge/Website-simatacksanweb.ir-blue?style=flat-square)](https://simatacksanweb.ir)
+## آشنایی با محیط n8n
 
----
-<p align="center"><i>اگه دوره‌ها یا پروژه‌هام به دردت خورد، یه ⭐️ فراموش نشه!</i></p>
+بعد از بالا اومدن n8n و ورود به `http://localhost:5678`، با این بخش‌ها آشنا می‌شی:
+
+- **Canvas**: فضای اصلی که workflow رو می‌سازی
+- **Nodes Panel**: لیست همه‌ی nodeهای موجود (سمت راست/چپ بسته به نسخه)
+- **Execution Log**: تاریخچه‌ی اجراهای workflow
+- **Credentials**: مدیریت متمرکز کلیدهای API و اتصال‌ها
+
+## تمرین این فصل
+
+1. n8n رو با Docker نصب کن
+2. یه workflow خالی بساز
+3. یه Node به اسم `Edit Fields (Set)` اضافه کن و یه مقدار متنی توش بذار
+4. workflow رو اجرا کن (دکمه‌ی Execute) و خروجی رو ببین
+
+➡️ فصل بعد: [مفاهیم پایه و Nodeها](../02-nodes-basics)
